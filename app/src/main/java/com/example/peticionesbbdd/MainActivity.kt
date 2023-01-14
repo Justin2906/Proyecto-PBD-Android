@@ -10,7 +10,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.peticionesbbdd.ui.theme.PeticionesBBDDTheme
+import com.example.peticionesbbdd.views.VistaModificar
+import com.example.peticionesbbdd.views.options
+import navigation.NavigationHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,22 +28,18 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    NavigationHost()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
+@Preview()
 @Composable
 fun DefaultPreview() {
     PeticionesBBDDTheme {
-        Greeting("Android")
+        VistaModificar()
     }
 }
+
