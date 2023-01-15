@@ -8,11 +8,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.example.peticionesbbdd.ui.theme.PeticionesBBDDTheme
-import navigation.NavigationHost
+import com.example.peticionesbbdd.navigation.NavigationHost
+import com.google.firebase.FirebaseApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this);
         setContent {
             PeticionesBBDDTheme {
                 Surface(

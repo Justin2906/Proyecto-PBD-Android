@@ -13,27 +13,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.peticionesbbdd.R
 
 @Composable
-fun MainScreen(){
-    Options(
-        navAdd = { /*TODO*/ },
-        navModify = { /*TODO*/ },
-        navDelete = { /*TODO*/ },
-        navQuery = { /*TODO*/ }) {
-    }
-}
-
-@Composable
-fun Options(
-    navAdd: () -> Unit,
-    navModify: () -> Unit,
-    navDelete: () -> Unit,
-    navQuery: () -> Unit,
-    navQueryAll: () -> Unit
-
-){
+fun Options(navController: NavHostController){
     val back = painterResource(id = R.drawable.fondo4)
     val logo = painterResource(id = R.drawable.logo)
 
@@ -55,7 +40,7 @@ fun Options(
                 contentDescription = null
             )
             Button(
-                onClick = { navAdd() },
+                onClick = { navController.navigate("Add") },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 shape = CutCornerShape(12.dp),
                 modifier = Modifier
@@ -72,7 +57,7 @@ fun Options(
             Spacer(modifier = Modifier.height(15.dp))
 
             Button(
-                onClick = { navModify() },
+                onClick = { navController.navigate("Modify")  },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 shape = CutCornerShape(12.dp),
                 modifier = Modifier
@@ -89,7 +74,7 @@ fun Options(
             Spacer(modifier = Modifier.height(15.dp))
 
             Button(
-                onClick = { navDelete() },
+                onClick = { navController.navigate("Delete")  },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 shape = CutCornerShape(12.dp),
                 modifier = Modifier
@@ -106,7 +91,7 @@ fun Options(
             Spacer(modifier = Modifier.height(15.dp))
 
             Button(
-                onClick = { navQuery() },
+                onClick = {  navController.navigate("Query") },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 shape = CutCornerShape(12.dp),
                 modifier = Modifier
@@ -123,14 +108,14 @@ fun Options(
             Spacer(modifier = Modifier.height(15.dp))
 
             Button(
-                onClick = { navQueryAll() },
+                onClick = { navController.navigate("QueryAll")  },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White), shape = CutCornerShape(12.dp),
                 modifier = Modifier
                     .width(250.dp)
                     .height(50.dp)
             ) {
                 Text(
-                    text = "Informacion General",
+                    text = "Información General",
                     color = Color.Black,
                     fontSize = 16.sp
                 )

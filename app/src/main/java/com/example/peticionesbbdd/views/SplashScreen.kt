@@ -19,14 +19,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.peticionesbbdd.R
 import kotlinx.coroutines.delay
-import navigation.Routes
+import com.example.peticionesbbdd.navigation.Routes
 
 @Composable
 fun SplashScreen(navController: NavHostController){
     LaunchedEffect(key1 = true){
         delay(4000)
         navController.popBackStack()
-        navController.navigate(Routes.Main.route)
+        navController.navigate(Routes.Inicio.ruta)
     }
 
     Splash()
