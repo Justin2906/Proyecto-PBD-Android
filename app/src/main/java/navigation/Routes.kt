@@ -4,7 +4,8 @@ sealed class Routes(
     val route: String,
     val title : String,
     ) {
-        object Inicio : Routes("inicio","Log in")
+        object  SplashScreen: Routes("Splash Screen", title = "Load App")
+        object Main : Routes("inicio","Log in")
         object Add: Routes("Add", title = "add new register")
         object Modify: Routes("Modify", title = "modify register")
         object Delete: Routes("Delete", title = "delete register")

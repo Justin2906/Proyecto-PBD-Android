@@ -11,8 +11,9 @@ import com.example.peticionesbbdd.views.*
 fun NavigationHost() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Inicio.route) {
-        composable(Inicio.route) {
+    NavHost(navController = navController, startDestination = SplashScreen.route) {
+        composable(SplashScreen.route) { SplashScreen(navController)}
+        composable(Main.route){
             options(
                 navAdd = {
                     navController.navigate(Add.route)
@@ -35,5 +36,7 @@ fun NavigationHost() {
         composable(Add.route){ VistaAñadir() }
         composable(Modify.route){ VistaModificar()}
         composable(Delete.route){ VistaEliminar()}
+        composable(Query.route){ VistaConsultar() }
+        composable(QueryAll.route){ VistaConsultarTodo() }
     }
 }
