@@ -1,10 +1,8 @@
 package com.example.peticionesbbdd.views
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
@@ -39,7 +37,6 @@ fun VistaEliminar(){
     )
     {
 
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -52,51 +49,52 @@ fun VistaEliminar(){
 
             Text(text = "Eliminar jugador", color = Color.White, fontSize = 35.sp)
 
+            OutlinedTextField(
+                value = dorsal,
+                onValueChange = { dorsal = it },
+                label = { Text("Introduce el dorsal del jugador a borrar") },
+                modifier = Modifier.background(Color.White, shape = CutCornerShape(12.dp)),
+                singleLine = true,
+            )
+
+            Spacer(modifier = Modifier.size(5.dp))
+
+            var mensaje by remember { mutableStateOf("") }
+
+            Button(
+
+                onClick = {
+                    if (dorsal.isNotBlank()) {
+                        dataBase.collection(nombre_coleccion)
+                            .document(dorsal)
+                            .delete()
+                            .addOnSuccessListener {
+                                mensaje = "Datos borrados correctamente"
+                                dorsal = ""
+                            }
+                            .addOnFailureListener {
+                                mensaje = "No se ha podido borrar"
+                                dorsal = ""
+                            }
+                    }
+                },
+
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+                shape = CutCornerShape(12.dp),
+                modifier = Modifier
+                    .width(250.dp)
+                    .height(50.dp)
+            )
+            {
+                Text(text = "Borrar")
+            }
+
+            Spacer(modifier = Modifier.size(5.dp))
+
+            Text(
+                text = mensaje,
+                color = Color.White
+            )
         }
-
-        OutlinedTextField(
-            value = dorsal,
-            onValueChange = { dorsal = it },
-            label = { Text("Introduce el NIF a borrar") },
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
-        )
-
-        Spacer(modifier = Modifier.size(5.dp))
-
-        var mensaje by remember { mutableStateOf("") }
-
-        Button(
-
-            onClick = {
-                if (dorsal.isNotBlank()) {
-                    dataBase.collection(nombre_coleccion)
-                        .document(dorsal)
-                        .delete()
-                        .addOnSuccessListener {
-                            mensaje = "Datos borrados correctamente"
-                            dorsal = ""
-                        }
-                        .addOnFailureListener {
-                            mensaje = "No se ha podido borrar"
-                            dorsal = ""
-                        }
-                }
-            },
-
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Blue,
-                contentColor = Color.White
-            ),
-            border = BorderStroke(1.dp, Color.Black)
-        )
-        {
-
-            Text(text = "Borrar")
-
-
-        }
-        Spacer(modifier = Modifier.size(5.dp))
-        Text(text = mensaje)
     }
 }

@@ -19,6 +19,6 @@ fun NavigationHost() {
         composable(Modify.ruta){ VistaModificar()}
         composable(Delete.ruta){ VistaEliminar()}
         composable(Query.ruta){ VistaConsultar() }
-        composable(QueryAll.ruta){ VistaConsultarTodo() }
+        composable(QueryAll.ruta){ ConsultarTodo(navController) }
     }
 }

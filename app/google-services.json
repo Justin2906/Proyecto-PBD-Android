@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385334618253:android:8110e64cb9af6eef8e1ac4",
+        "android_client_info": {
+          "package_name": "com.example.peticionesbbdd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385334618253-712ckb8nlfttpikmvtnc8j36rlkvrtrk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKnYJhu07-pWmF0xNKMHZ6VWIQmZUc-VA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385334618253-712ckb8nlfttpikmvtnc8j36rlkvrtrk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

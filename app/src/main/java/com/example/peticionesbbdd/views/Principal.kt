@@ -99,7 +99,7 @@ fun Options(navController: NavHostController){
                     .height(50.dp)
             ) {
                 Text(
-                    text = "Consultar",
+                    text = "Buscar",
                     color = Color.Black,
                     fontSize = 16.sp
                 )

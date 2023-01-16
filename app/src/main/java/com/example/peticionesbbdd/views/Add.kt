@@ -1,6 +1,7 @@
 package com.example.peticionesbbdd.views
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CutCornerShape
@@ -17,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.peticionesbbdd.R
-import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
@@ -59,7 +59,7 @@ fun Vista_add(navController: NavHostController){
                 value = name,
                 onValueChange = { name = it },
                 label = { Text("Nombre  del jugador") },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.background(Color.White, shape = CutCornerShape(12.dp)),
                 singleLine = true,
             )
 
@@ -69,7 +69,7 @@ fun Vista_add(navController: NavHostController){
                 value = dorsal,
                 onValueChange = { dorsal = it },
                 label = { Text("Dorsal del jugador") },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.background(Color.White, shape = CutCornerShape(12.dp)),
                 singleLine = true,
             )
 
@@ -79,7 +79,7 @@ fun Vista_add(navController: NavHostController){
                 value = division,
                 onValueChange = { division = it },
                 label = { Text("Division del jugador") },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.background(Color.White, shape = CutCornerShape(12.dp)),
                 singleLine = true,
             )
 
@@ -89,7 +89,7 @@ fun Vista_add(navController: NavHostController){
                 value = posicion,
                 onValueChange = { posicion = it },
                 label = { Text("Posición  del jugador") },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.background(Color.White, shape = CutCornerShape(12.dp)),
                 singleLine = true,
             )
 
@@ -102,7 +102,7 @@ fun Vista_add(navController: NavHostController){
                 "posicion" to posicion.toString(),
             )
 
-            var mensaje_confirmacion by remember { mutableStateOf("") }
+            var mensaje by remember { mutableStateOf("") }
 
             Button(
                 onClick = {
@@ -110,14 +110,14 @@ fun Vista_add(navController: NavHostController){
                         .document(dorsal)
                         .set(dato)
                         .addOnSuccessListener {
-                            mensaje_confirmacion ="Datos guardados correctamente"
+                            mensaje ="Datos guardados correctamente"
                             name = ""
                             dorsal = ""
                             division = ""
                             posicion = ""
                         }
                         .addOnFailureListener {
-                            mensaje_confirmacion ="No se ha podido guardar"
+                            mensaje ="No se ha podido guardar"
                             name = ""
                             dorsal = ""
                             division = ""
@@ -138,7 +138,10 @@ fun Vista_add(navController: NavHostController){
 
             Spacer(modifier = Modifier.size(15.dp))
 
-            Text(text = mensaje_confirmacion)
+            Text(
+                text = mensaje,
+                color = Color.White
+            )
 
         }
     }

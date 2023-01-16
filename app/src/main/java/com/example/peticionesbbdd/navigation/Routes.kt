@@ -8,5 +8,6 @@ sealed class Routes(val ruta: String) {
     object Delete: Routes("Delete")
     object Query: Routes("Query")
     object QueryAll: Routes("QueryAll")
+    object Registers: Routes("Registers")
 
 }
