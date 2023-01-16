@@ -52,7 +52,7 @@ fun VistaEliminar(){
             OutlinedTextField(
                 value = dorsal,
                 onValueChange = { dorsal = it },
-                label = { Text("Introduce el dorsal del jugador a borrar") },
+                label = { Text("Dorsal del jugador a borrar") },
                 modifier = Modifier.background(Color.White, shape = CutCornerShape(12.dp)),
                 singleLine = true,
             )

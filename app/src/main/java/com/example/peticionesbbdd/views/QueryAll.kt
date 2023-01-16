@@ -3,18 +3,19 @@ package com.example.peticionesbbdd.views
 import android.content.ContentValues
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -27,16 +28,29 @@ import model.Jugadores
 
 @Composable
 fun PlayerCard(jugadores: Jugadores, navController: NavController) {
+    val db = FirebaseFirestore.getInstance()
+    var nombre_coleccion = "jugadores"
+
     Surface(
         modifier = Modifier
-            .padding(8.dp),
+            .padding(8.dp)
+            .fillMaxWidth(),
         shape = RoundedCornerShape(8.dp),
         elevation = 8.dp,
-        color = Color(0xFF373960)
+        color = Color(0xFF11273F),
     ) {
         Column(
             modifier = Modifier
                 .padding(16.dp)
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = listOf(
+                            Color(0xFF647E9C),
+                            Color(0xFF081424)
+                        )
+                    ),
+                    shape = CutCornerShape(5.dp)
+                )
         ) {
 
             Text(
@@ -67,21 +81,6 @@ fun PlayerCard(jugadores: Jugadores, navController: NavController) {
                     .align(Alignment.CenterHorizontally),
                 color = Color.White
             )
-
-            Button(
-                onClick = { },
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .fillMaxWidth()
-                    .height(40.dp)
-                    .padding(top = 5.dp)
-            ) {
-                Text(
-                    text = "Editar",
-                    color = Color.Black
-                )
-            }
         }
     }
 }

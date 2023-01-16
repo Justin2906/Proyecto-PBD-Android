@@ -6,13 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -25,13 +20,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.peticionesbbdd.R
 import com.example.peticionesbbdd.ui.theme.PeticionesBBDDTheme
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun VistaModificar(){
-    val name = remember { mutableStateOf(TextFieldValue()) }
-    val dorsal = remember { mutableStateOf(TextFieldValue()) }
-    val division = remember { mutableStateOf(TextFieldValue()) }
-    val posicion = remember { mutableStateOf(TextFieldValue()) }
+    val db = FirebaseFirestore.getInstance()
+    var nombre_coleccion = "jugadores"
+
+    var name by remember { mutableStateOf("") }
+    var dorsal by remember { mutableStateOf("") }
+    var division by remember { mutableStateOf("") }
+    var posicion by remember { mutableStateOf("") }
 
     val back = painterResource(id = R.drawable.fondo4)
     val logo = painterResource(id = R.drawable.logo)
@@ -56,44 +55,75 @@ fun VistaModificar(){
 
             Text(text = "Datos del jugador", color = Color.White, fontSize = 35.sp)
 
-            TextField(
-                label ={ Text(text = "Nombre del jugador") },
-                value = name.value,
-                onValueChange = {name.value = it},
-                modifier = Modifier.background(Color.White, CutCornerShape(12.dp)),
+            OutlinedTextField(
+                value = name,
+                onValueChange = { name = it },
+                label = { Text(text = "Nombre del jugador") },
+                modifier = Modifier.background(Color.White, shape = CutCornerShape(12.dp)),
+                singleLine = true,
             )
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            TextField(
-                label ={ Text(text = "Dorsal del jugador") },
-                value = dorsal.value,
-                onValueChange = {dorsal.value = it},
-                modifier = Modifier.background(Color.White, CutCornerShape(12.dp))
+            OutlinedTextField(
+                value = dorsal,
+                onValueChange = { dorsal = it },
+                label = { Text(text = "Dorsal del jugador") },
+                modifier = Modifier.background(Color.White, shape = CutCornerShape(12.dp)),
+                singleLine = true,
             )
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            TextField(
-                label ={ Text(text = "Division del jugador") },
-                value = division.value,
-                onValueChange = {division.value = it},
-                modifier = Modifier.background(Color.White, CutCornerShape(12.dp))
+            OutlinedTextField(
+                value = division,
+                onValueChange = { division = it },
+                label = { Text(text = "Division del jugador") },
+                modifier = Modifier.background(Color.White, shape = CutCornerShape(12.dp)),
+                singleLine = true,
             )
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            TextField(
-                label ={ Text(text = "Posicion del jugador") },
-                value = posicion.value,
-                onValueChange = {posicion.value = it},
-                modifier = Modifier.background(Color.White, CutCornerShape(12.dp))
+            OutlinedTextField(
+                value = posicion,
+                onValueChange = { posicion = it },
+                label = { Text(text = "Posicion del jugador") },
+                modifier = Modifier.background(Color.White, shape = CutCornerShape(12.dp)),
+                singleLine = true,
             )
 
             Spacer(modifier = Modifier.height(15.dp))
+
+            val dato = hashMapOf(
+                "nombre" to name.toString(),
+                "dorsal" to dorsal.toString(),
+                "division" to division.toString(),
+                "posicion" to posicion.toString()
+            )
+
+            var mensaje_confirmacion by remember { mutableStateOf("") }
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    db.collection(nombre_coleccion)
+                        .document(dorsal)
+                        .set(dato)
+                        .addOnSuccessListener {
+                            mensaje_confirmacion ="Datos Modificados correctamente"
+                            name = ""
+                            dorsal = ""
+                            division = ""
+                            posicion=""
+                        }
+                        .addOnFailureListener {
+                            mensaje_confirmacion ="No se ha podido modificar"
+                            name = ""
+                            dorsal = ""
+                            division = ""
+                            posicion=""
+                        }
+                },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 shape = CutCornerShape(12.dp),
                 modifier = Modifier
@@ -105,8 +135,12 @@ fun VistaModificar(){
                     color = Color.Black
                 )
             }
-
-
+            Spacer(modifier = Modifier.size(5.dp))
+            Text(
+                text = mensaje_confirmacion,
+                color = Color.White
+            )
         }
     }
 }
+
